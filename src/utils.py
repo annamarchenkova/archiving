@@ -1,6 +1,23 @@
 import os
-import shutil
 import zipfile
+import pkgutil
+import yaml
+
+def read_config(config_dir, config_name="config.yml"):
+    """
+    Return the project configuration settings.
+
+    Args:
+        config_name (str): Name of directory containing config
+        name_params (str): name of the file yaml containing configurations
+
+    Returns:
+        (dict): combined general settings with params settings
+    """
+    params_config_path = pkgutil.get_data(__name__, f"{config_dir}/{config_name}")
+    configurations = yaml.safe_load(params_config_path)
+
+    return configurations
 
 
 def find_files_by_names_and_extentions(path, name_strs, extentions):
